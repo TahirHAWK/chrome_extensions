@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "ICC Server multiple episode downloader",
+    "version": "0.001",
+    "content_scripts":[
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": ["content.js"]
+        }
+    ]
+
+}
