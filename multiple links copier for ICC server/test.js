@@ -1,10 +1,4 @@
 
-console.log('hey man, from test file')
-
-
-
-
-
 function collectAllInputData(){
     let allInputs = document.getElementsByTagName('input')
     let allInputValues = ""
@@ -28,11 +22,11 @@ function afterKeyPress(b){
             
            console.log(collectAllInputData(), 'AFter key press')
            
-           
-           alert('stop before loading')
-        }
-        
-        // console.log("pressed something")
+        //    here the data will be sent to backend and the alert sign will be removed later
+        alert('stop before loading')
+    }
+    
+    // console.log("pressed something")
     
     
 }
@@ -43,8 +37,9 @@ document.addEventListener( "keyup", afterKeyPress)
 
 document.addEventListener('submit', (e)=>{
     let datainput = collectAllInputData()
-
+    
     console.log(datainput.InputAsString, "After submission", )
+    //    here the data will be sent to backend and the alert sign will be removed later
     alert(datainput.InputAsString)
 })
 
