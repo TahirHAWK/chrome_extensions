@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Chrome Exkittension",
+    "version": "0.1",
+    "web_accessible_resources": [
+        "images/*.jpg"
+    ],
+    "content_scripts": [
+        {
+            "matches":[
+                "<all_urls>"
+            ],
+            "js": ["kitten.js"]
+
+        }
+        ]
+}
