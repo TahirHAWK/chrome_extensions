@@ -11,7 +11,8 @@ function collectAllInputData(){
 
      return {
         InputAsString: allInputValues,
-        InputAsArray: allInputValuesArray
+        InputAsArray: allInputValuesArray,
+        another: 'Hope it works'
      }
      
 }
@@ -19,14 +20,13 @@ function collectAllInputData(){
 function afterKeyPress(b){
         if (b.key === 'Enter') {
             // code for enter
-            
-           console.log(collectAllInputData(), 'AFter key press')
-           
-        //    here the data will be sent to backend and the alert sign will be removed later
-        alert('stop before loading')
-    }
-    
-    // console.log("pressed something")
+            let datam = collectAllInputData()
+          
+
+      
+        }
+
+  
     
     
 }
@@ -35,13 +35,13 @@ function afterKeyPress(b){
 document.addEventListener( "keyup", afterKeyPress)
 
 
-document.addEventListener('submit', (e)=>{
-    let datainput = collectAllInputData()
+// document.addEventListener('submit', (e)=>{
+//     let datainput = collectAllInputData()
     
-    console.log(datainput.InputAsString, "After submission", )
-    //    here the data will be sent to backend and the alert sign will be removed later
-    alert(datainput.InputAsString)
-})
+//     console.log(datainput.InputAsString, "After submission", )
+//     //    here the data will be sent to backend and the alert sign will be removed later
+//     alert(datainput.InputAsString)
+// })
 
 
 

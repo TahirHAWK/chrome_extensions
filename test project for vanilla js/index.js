@@ -6,3 +6,13 @@ test2.test()
 test2.test12()
 
 test33()
+
+fetch("http://localhost:3000/myextensions/dataCollector/firstOne/enterpress/from_browser",
+                    {
+                        method: "GET",
+                    })
+                    .then(function(res){ return res.json(); })
+                    .then(function(data){ 
+                        alert( JSON.stringify( data )) 
+                    console.log(data)
+                    })

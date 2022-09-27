@@ -2,13 +2,21 @@
     "manifest_version": 3,
     "name": "ICC Server multiple episode downloader",
     "version": "0.001",
+    "host_permissions": [
+        "<all_urls>"],
+    "permissions": ["webRequest", "tabs"],
+    
     "content_scripts":[
         {
             "matches": [
                 "<all_urls>"
             ],
-            "js": ["content.js", "test.js"]
+            "js": ["test.js"]
         }
-    ]
+    ],
+    "background":{
+        "service_worker": "background.js"
+    }
+    
 
 }
