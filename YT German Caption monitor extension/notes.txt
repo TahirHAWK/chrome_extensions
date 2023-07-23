@@ -1,0 +1,10 @@
+Steps to clean data for my german extension:
+
+I want my german words collection into an array where the odd number of indexes holds the german words and their corresponding even number indexes holds the meaning of that word. 
+
+To make it double quoted before using it as an array:
+-----------------------------------------------------
+regex to select all characters seperated by comma, : ([^,]+)
+replace it with double quotation: "\\$1"
+to clear the empty spaces: \s*"\s*(.*?)\s*"\s*
+replace with: "\\$1"

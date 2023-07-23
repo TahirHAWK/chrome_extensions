@@ -1,0 +1,49 @@
+i want to monitor youtube's captions for changes, 
+
+<span class="captions-text" style="overflow-wrap: normal; display: block;">
+    <span class="caption-visual-line" style="display: block;">
+    <span class="ytp-caption-segment" style="display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 22.9333px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: "YouTube Noto", Roboto, "Arial Unicode Ms", Arial, Helvetica, Verdana, "PT Sans Caption", sans-serif; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor:rgba(6, 7, 7, 0.75); --darkreader-inline-color:#e8e6e3; --darkreader-inline-fill:#e8e6e3;" data-darkreader-inline-bgimage data-darkreader-inline-bgcolor data-darkreader-inline-color data-darkreader-inline-fill>–
+         Jetzt habe ich Geschenke aus Köln,
+        </span>
+    </span>
+    <span class="caption-visual-line" style="display: block;">
+        <span class="ytp-caption-segment" style="display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 22.9333px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: "YouTube Noto", Roboto, "Arial Unicode Ms", Arial, Helvetica, Verdana, "PT Sans Caption", sans-serif; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor:rgba(6, 7, 7, 0.75); --darkreader-inline-color:#e8e6e3; --darkreader-inline-fill:#e8e6e3;" data-darkreader-inline-bgimage data-darkreader-inline-bgcolor data-darkreader-inline-color data-darkreader-inline-fill>
+            Hamburg, Düsseldorf, Heidelberg und Berlin.
+        </span>
+    </span>
+</span>
+
+this is how the captions in youtube are stacked, only the innertexts inside the "<span class="ytp-caption-segment".........  " gets changed as the video moves forward.  i want to monitor the texts that are the captions, in this example,"Jetzt habe ich Geschenke aus Köln," and "Hamburg, Düsseldorf, Heidelberg und Berlin." 
+
+write me a script to monitor these type of changes and where to put it in an extension.
+
+
+
+style
+ <style>
+  .navbar {
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  
+  .navbar-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .navbar-line {
+    margin-right: auto;
+  }
+  
+  .navbar-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+  }  </style>
