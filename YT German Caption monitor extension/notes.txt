@@ -8,3 +8,7 @@ regex to select all characters seperated by comma, : ([^,]+)
 replace it with double quotation: "\\$1"
 to clear the empty spaces: \s*"\s*(.*?)\s*"\s*
 replace with: "\\$1"
+
+
+next plans:
+1. try the translation method collecting from caption segment instead of searching for active caption tab in the caption traverser.

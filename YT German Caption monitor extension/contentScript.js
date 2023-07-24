@@ -9,6 +9,26 @@
 let rawCaptions = []
 let desiredCaptions = []
 
+// here the caption is being replaced so that the video can be seen fullscreen
+function placeCaption(caption){
+    let captionHolder = document.getElementsByClassName('ytp-caption-segment')
+    if(captionHolder.length !== 0){
+        captionHolder[0].innerText = caption
+        captionHolder[1].innerText = ''
+    }
+}
+
+// this function will collect captions from youtube caption segment
+function collectCaption(){
+    let fullCaption = ''
+    let captionHolder = document.getElementsByClassName('ytp-caption-segment')
+    if(captionHolder.length !== 0){
+        for(i=0; i<captionHolder.length; i++){
+           fullCaption = fullCaption + captionHolder[i].innerText 
+        }
+    }
+    return fullCaption
+}
 
 // sendItToBackground, this function send the parameter whatever it is passed to the background script for further processing
 function sendItToBackground(caption){
@@ -18,6 +38,7 @@ function sendItToBackground(caption){
         rawCaptions.push(caption)
         desiredCaptions.push(response.message)
         console.log('response from background:', response.message )
+        placeCaption(response.message)
     })
 }
 
@@ -34,7 +55,7 @@ function checkRawCaptions(activeCaption){
 // get the element where the caption is located
 // this is where the caption is located, but in order for this code to work, the user must open the captions tab manually
 
-async function captionTraverser(){
+function captionTraverser(){
     console.log('from caption traverser: ' ,rawCaptions, desiredCaptions)
     let getCaptionLanguageType = document.getElementById('label-text')
     let allCaptionsTab = document.querySelectorAll('ytd-transcript-segment-renderer')
