@@ -1017,20 +1017,27 @@ function extractWords(str) {
 function findGermanMeaning(wordsToFind){
     let translatedSentence = ''
     // make it efficient
-    for(i=0; i<wordsToFind.length; i++){
-        // this is the loop where the german word list is being checked
+    wordsToFind.forEach((word)=>{
+        if(germanWordList.includes(word)){
         for(j=0; j<germanWordList.length; j=j+2){
-            if(germanWordList[j].includes(wordsToFind[i])){
-                wordsToFind[i] = wordsToFind[i] + `(${germanWordList[j+1]}) `
-                translatedSentence = translatedSentence + wordsToFind[i]
-            } 
+        if(germanWordList[j]==word){
+            translatedSentence = translatedSentence +`${word}(${germanWordList[j+1]}) `
+            j = germanWordList.length
+        } 
         }
-    }
-   
+            } else{
+                translatedSentence = translatedSentence +`${word} `
+            }
+
+    })
+    return translatedSentence   
 }
 
 // listen for messages
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     console.log(message.message)
-    sendResponse({message: `hi from background: ${message.message}`})
+    let wordsToFind = extractWords(message.message)
+    findGermanMeaning(wordsToFind)
+    console.log(findGermanMeaning(wordsToFind))
+    sendResponse({message: `${findGermanMeaning(wordsToFind)}`})
 })
