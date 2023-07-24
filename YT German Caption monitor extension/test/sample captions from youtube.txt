@@ -1,3 +1,12 @@
+
+<div id="segments-container" class="style-scope ytd-transcript-segment-list-renderer">
+<ytd-transcript-segment-renderer class="style-scope ytd-transcript-segment-list-renderer" rounded-container>…</ytd-transcript-segment-renderer>
+<ytd-transcript-segment-renderer class="style-scope ytd-transcript-segment-list-renderer" rounded-container>…</ytd-transcript-segment-renderer>
+<ytd-transcript-segment-renderer class="style-scope ytd-transcript-segment-list-renderer active" rounded-container>…</ytd-transcript-segment-renderer>
+<ytd-transcript-segment-renderer class="style-scope ytd-transcript-segment-list-renderer" rounded-container>…</ytd-transcript-segment-renderer>
+</div>
+
+
 – Guten Morgen, Herr Müller, wie geht es Ihnen? – Guten Morgen, Frau Schneider. Danke, gut! Und Ihnen?
 – Guten Morgen, Herr Müller, wie geht es Ihnen? – Guten Morgen, Frau Schneider. Danke, gut! Und Ihnen?
 – Guten Tag, Frau Kamp. – Guten Tag! Wie geht es Ihnen? – Sehr gut, danke. Und Ihnen?
