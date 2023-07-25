@@ -1001,6 +1001,21 @@ let germanWordList = ["German","English",
 "Zorn","anger",
 "Anspruch","claim",
 "Kontinent","continent"]
+let processedList = []
+
+// as directly modifying the captions has its drawbacks,  the same translated captions are fetched and sent to background for translation again, to prevent this, we are keeping a record
+function checkProcessedList(sentence){
+    if(processedList.includes(sentence)){
+        console.log('found in processedlist', processedList)
+        return sentence
+    } else {
+        let wordsToFind = extractWords(sentence)
+        let newSentence = findGermanMeaning(wordsToFind)
+        processedList.push(newSentence)
+        console.log('pushed to processedlist', processedList.includes(newSentence), processedList)
+        return newSentence
+    }
+}
 
 // this function would extract words only out of a string, while excluding all special characters and spaces and return them as an array
 function extractWords(str) {
@@ -1019,25 +1034,23 @@ function findGermanMeaning(wordsToFind){
     // make it efficient
     wordsToFind.forEach((word)=>{
         if(germanWordList.includes(word)){
-        for(j=0; j<germanWordList.length; j=j+2){
+        for(j=0; j<germanWordList.length; j++){
         if(germanWordList[j]==word){
-            translatedSentence = translatedSentence +`${word}(${germanWordList[j+1]}) `
+            translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
             j = germanWordList.length
         } 
         }
             } else{
-                translatedSentence = translatedSentence +`${word} `
+                translatedSentence = translatedSentence +` ${word}`
             }
 
     })
-    return translatedSentence   
+    return translatedSentence.trim()   
 }
+
 
 // listen for messages
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
-    console.log(message.message)
-    let wordsToFind = extractWords(message.message)
-    findGermanMeaning(wordsToFind)
-    console.log(findGermanMeaning(wordsToFind))
-    sendResponse({message: `${findGermanMeaning(wordsToFind)}`})
+    console.log(message.message.trim())
+    sendResponse({message: checkProcessedList(message.message.trim())})
 })

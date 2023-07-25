@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
-      "js": ["contentScript.js"],
+      "js": [ "contentScript2.js"],
       "run_at": "document_idle",
       "all_frames": false
     }
