@@ -9,6 +9,16 @@
 let rawCaptions = []
 let desiredCaptions = []
 
+// checking if the video is playing or in pause mode, if in pause, no further calculations would be done
+function checkPlayStatus(){
+    let getPlayStatus = document.getElementsByClassName('ytp-play-button')[0].getAttribute('data-title-no-tooltip');
+    if(getPlayStatus == 'Play'){
+        return false
+    } else if(getPlayStatus == 'Pause'){
+        return true
+    }
+}
+
 // here the caption is being replaced so that the video can be seen fullscreen
 function placeCaption(caption){
     let captionHolder = document.getElementsByClassName('ytp-caption-segment')
@@ -66,9 +76,16 @@ function checkRawCaptions(activeCaption){
 // this is where the caption is located, but in order for this code to work, the user must open the captions tab manually
 
 function captionTraverser(){
-    
-    checkRawCaptions(collectCaption())
+    // it will only run if the video is playing
+    if(checkPlayStatus()){
+        checkRawCaptions(collectCaption())
+    } else{
+        console.log('Currently in pause, press play to continue.')
+    }
 }
+
+// need this method for the future use....
+
 // function captionTraverser(){
 //     console.log('from caption traverser: ' ,rawCaptions, desiredCaptions)
 //     let getCaptionLanguageType = document.getElementById('label-text')

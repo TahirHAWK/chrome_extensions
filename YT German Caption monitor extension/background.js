@@ -1003,6 +1003,7 @@ let germanWordList = ["German","English",
 "Kontinent","continent"]
 let processedList = []
 
+
 // as directly modifying the captions has its drawbacks,  the same translated captions are fetched and sent to background for translation again, to prevent this, we are keeping a record
 function checkProcessedList(sentence){
     if(processedList.includes(sentence)){
@@ -1034,7 +1035,7 @@ function findGermanMeaning(wordsToFind){
     // make it efficient
     wordsToFind.forEach((word)=>{
         if(germanWordList.includes(word)){
-        for(j=0; j<germanWordList.length; j++){
+        for(j=0; j<germanWordList.length; j=j+2){
         if(germanWordList[j]==word){
             translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
             j = germanWordList.length
