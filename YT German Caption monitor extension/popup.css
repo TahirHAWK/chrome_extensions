@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #141e24;
+    padding: 20px;
+    width: 15rem;
+}
+
+h3{
+    color: beige;
+}
+
+p{
+    padding-top: 10px;
+    color: antiquewhite;
+}
+
+button{
+    padding: 15px;
+    min-width: 15rem;
+    margin: 5px;
+    background-color: #141e24;
+    border-color: #53a1b3;
+    color: antiquewhite;
+}
+
+button:hover{
+background-color: #53a1b3;
+color: #141e24;
+}

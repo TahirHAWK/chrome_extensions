@@ -11,5 +11,4 @@ replace with: "\\$1"
 
 
 next plans:
-1. try the translation method collecting from caption segment instead of searching for active caption tab in the caption traverser.
-2. make an array in background script where the processed strings will be kept, so before processing it, it will also be checked there
+1. Try out the API for word by word meaning search.
