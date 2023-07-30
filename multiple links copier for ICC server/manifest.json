@@ -1,22 +1,33 @@
 {
     "manifest_version": 3,
-    "name": "ICC Server multiple episode downloader",
-    "version": "0.001",
-    "host_permissions": [
-        "<all_urls>"],
-    "permissions": ["webRequest", "tabs"],
-    
-    "content_scripts":[
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": ["test.js"]
-        }
+    "name": "ICC multiple links copier",
+    "version": "1.0",
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "scripting",
+      "activeTab", 
+      "storage",
+      "tabs"
     ],
-    "background":{
-        "service_worker": "background.js"
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "host_permissions": [
+      "https://www.youtube.com/", "http://10.16.100.244/"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://*.youtube.com/*", "http://10.16.100.244/*"],
+        "js": [ "content.js"],
+        "run_at": "document_idle",
+        "all_frames": false
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html"
     }
-    
-
-}
+   
+  }
+  
