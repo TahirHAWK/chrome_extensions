@@ -14,11 +14,16 @@ const options = {
 	})
 };
 
-try {
+async function fetchMeaning(){
+ try {
 	const response = await fetch(url, options);
 	const result = await response.text();
 	console.log(result, result.data);
 } catch (error) {
 	console.error(error);
+}   
 }
+
+fetchMeaning()
+
 // Empty popup script for Manifest V3
