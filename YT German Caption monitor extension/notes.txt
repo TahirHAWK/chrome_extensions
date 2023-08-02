@@ -11,4 +11,4 @@ replace with: "\\$1"
 
 
 next plans:
-1. Try out the API for word by word meaning search.
+1. 

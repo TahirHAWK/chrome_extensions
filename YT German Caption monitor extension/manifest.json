@@ -3,7 +3,7 @@
   "name": "Youtube German Captions monitor",
   "version": "1.0",
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "CaptionMonitorBackground.js"
   },
   "permissions": [
     "scripting",
@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
-      "js": [ "contentScript2.js"],
+      "js": [ "captionMonitorContentScript.js"],
       "run_at": "document_idle",
       "all_frames": false
     }

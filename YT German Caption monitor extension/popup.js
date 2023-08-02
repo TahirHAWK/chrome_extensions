@@ -8,7 +8,7 @@ const options = {
 		'X-RapidAPI-Host': 'word-translation-word-to-word.p.rapidapi.com'
 	},
 	body: new URLSearchParams({
-		word: 'Mutter',
+		word: 'Grillen',
 		fromlanguage: 'German',
 		tolanguage: 'English'
 	})
@@ -16,9 +16,9 @@ const options = {
 
 async function fetchMeaning(){
  try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result, result.data);
+	// const response = await fetch(url, options);
+	// const result = await response.text();
+	console.log(result);
 } catch (error) {
 	console.error(error);
 }   
@@ -27,3 +27,6 @@ async function fetchMeaning(){
 fetchMeaning()
 
 // Empty popup script for Manifest V3
+
+
+// fetch all captions for youtube
