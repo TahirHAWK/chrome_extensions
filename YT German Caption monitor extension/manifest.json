@@ -15,7 +15,7 @@
     "default_popup": "popup.html"
   },
   "host_permissions": [
-    "https://www.youtube.com/"
+    "https://www.youtube.com/", "https://www.google.com/"
   ],
   "content_scripts": [
     {
@@ -24,5 +24,8 @@
       "run_at": "document_idle",
       "all_frames": false
     }
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval' http://localhost:* http://127.0.0.1:*  'self'"
+  }
 }
