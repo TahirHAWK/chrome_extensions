@@ -1,10 +1,3 @@
-// plan: 
-// 1. make an array where the raw active caption would be pushed, and before pushing, it would be checked if the raw caption already exists or not
-
-// 2. if the raw caption already exists, then another array, which is the collection of responses from the background script, where the desired translated output will be kept in the same indexes which would be easier to find and show as output
-// 3. if it doesn't exists, then the raw caption would be sent to the background script, which will make it a words array from sentence, then search it in the german words list and return the modified array/string as response to content script.
-// 4. save the response in the same index as the raw string captions so that both can be found easily in two different arrays, even if it is called multiple times, the same function wouldn't require same calculations multiple times
-
 // declaration section
 let rawCaptions = []
 let desiredCaptions = []

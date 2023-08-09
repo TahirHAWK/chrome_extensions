@@ -1,32 +1,19 @@
-// popup.js
-const url = 'https://word-translation-word-to-word.p.rapidapi.com/translatewordtoword';
-const options = {
-	method: 'POST',
-	headers: {
-		'content-type': 'application/x-www-form-urlencoded',
-		'X-RapidAPI-Key': 'ba1a7f5c75mshbcedc7b3b03e1e6p19097bjsn46db42b0db40',
-		'X-RapidAPI-Host': 'word-translation-word-to-word.p.rapidapi.com'
-	},
-	body: new URLSearchParams({
-		word: 'Grillen',
-		fromlanguage: 'German',
-		tolanguage: 'English'
-	})
-};
-
-async function fetchMeaning(){
- try {
-	// const response = await fetch(url, options);
-	// const result = await response.text();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}   
-}
-
-fetchMeaning()
-
-// Empty popup script for Manifest V3
 
 
 // fetch all captions for youtube
+let fetchAllCaptionButton = document.getElementById('yt-fetch-all-captions')
+fetchAllCaptionButton.addEventListener('click', ()=>{
+	// make the button disabled
+	fetchAllCaptionButton.setAttribute('disabled', 'true')
+	fetchAllCaptionButton.innerText = 'Please wait...'
+
+	// send request to contentscript to grab the data
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		const tabId = tabs[0].id;
+		chrome.tabs.sendMessage(tabId, { message: 'request all yt captions' }, function (response) {
+			// setup axios and send the response to node server for translation using api.
+		  console.log(response);
+		});
+	  });
+
+})
