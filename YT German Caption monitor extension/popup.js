@@ -1,21 +1,37 @@
 
 
+// keeping the value of the previous button heading/value
+let buttonTempValueHolder = []
+let buttonSwitch = function(button, status){
+	if(status == 'disable'){
+		button.setAttribute('disabled', 'true') 
+		buttonTempValueHolder.push(button.innerText)
+		button.innerText = 'Please wait...'
+	} else if(status == 'enable'){
+		button.disabled = false
+		button.innerText = buttonTempValueHolder[0]
+	}
+}
+
 // fetch all captions for youtube
 let fetchAllCaptionButton = document.getElementById('yt-fetch-all-captions')
 fetchAllCaptionButton.addEventListener('click', ()=>{
 	// make the button disabled
-	fetchAllCaptionButton.setAttribute('disabled', 'true')
-	fetchAllCaptionButton.innerText = 'Please wait...'
-
-
+	let fetchAllCaptionButtonValueTemp = fetchAllCaptionButton.innerText
+	buttonSwitch(fetchAllCaptionButton, 'disable')
+	
+	
 	
 	// send request to contentscript to grab the data
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		const tabId = tabs[0].id;
 		chrome.tabs.sendMessage(tabId, { message: 'request all yt captions' }, function (fetchedWords) {
 			// setup axios and send the response to node server for translation using api.
-			axios.post('http://localhost:3000/translateToEnglish', {wordlist: fetchedWords}).then((res) =>{
+			console.log(fetchedWords.length, 'length of fetched words')
+			axios.post('http://localhost:3000/translateToEnglish', {videoUrl: tabs[0].url , wordlist: fetchedWords}).then((res) =>{
 			console.log(res.data)
+			// restoring the button value
+			buttonSwitch(fetchAllCaptionButton, 'enable')
 			}).catch(error => {
 				// Handle errors
 				console.error(error);
