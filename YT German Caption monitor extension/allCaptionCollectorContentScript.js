@@ -39,16 +39,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     let allCaptions = ''
     // get all youtube captions of that video
     if(request.message == "request all yt captions" && captionTabExists && getCaptionLanguageType.innerText.includes('German')){
- 
             console.log('detected german successfully..')
              allCaptions = allCaptionsTab.innerText  
             allWords = extractUniqueWords(extractWords(allCaptions)).sort()
             console.log(extractWords(allCaptions).length, extractUniqueWords(allCaptions).length,extractUniqueWords(extractWords(allCaptions)).length)
             sendResponse(allWords);
-
     } else{
       console.log('Some problems occured:', captionTabExists, request.message == "request all yt captions")
       // send a message as an error and check on the popup script 
+      sendResponse('problem')
     }
     
 

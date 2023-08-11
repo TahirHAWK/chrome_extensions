@@ -10,6 +10,8 @@ let buttonSwitch = function(button, status){
 	} else if(status == 'enable'){
 		button.disabled = false
 		button.innerText = buttonTempValueHolder[0]
+	} else{
+		button.innerText = 'Check if German Transcript is shown or not.'
 	}
 }
 
@@ -27,15 +29,20 @@ fetchAllCaptionButton.addEventListener('click', ()=>{
 		const tabId = tabs[0].id;
 		chrome.tabs.sendMessage(tabId, { message: 'request all yt captions' }, function (fetchedWords) {
 			// setup axios and send the response to node server for translation using api.
-			console.log(fetchedWords.length, 'length of fetched words')
-			axios.post('http://localhost:3000/translateToEnglish', {videoUrl: tabs[0].url , wordlist: fetchedWords}).then((res) =>{
-			console.log(res.data)
-			// restoring the button value
-			buttonSwitch(fetchAllCaptionButton, 'enable')
-			}).catch(error => {
-				// Handle errors
-				console.error(error);
-			})
+			if(typeof(fetchedWords) == 'object' && !!fetchedWords.length){
+				console.log(fetchedWords.length, !!fetchedWords.length, 'length of fetched words')
+				axios.post('http://localhost:3000/translateToEnglish', {videoUrl: tabs[0].url , wordlist: fetchedWords}).then((res) =>{
+				console.log(res.data)
+				// restoring the button value
+				buttonSwitch(fetchAllCaptionButton, 'enable')
+				}).catch(error => {
+					// Handle errors
+					console.error(error);
+				})
+			} else{
+				buttonSwitch(fetchAllCaptionButton, '')
+			}
+
 		});
 	  });
 
