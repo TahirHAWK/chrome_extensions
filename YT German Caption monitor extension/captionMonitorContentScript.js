@@ -11,7 +11,7 @@ function checkPlayStatus(){
     let getPlayStatus = document.getElementsByClassName('ytp-play-button')[0].getAttribute('data-title-no-tooltip');
     if(getPlayStatus == 'Play'){
         return false
-    } else if(getPlayStatus == 'Pause' && subtitlesButtonStatus == 'true' && captionLanguageCheck == 'de-DE'){
+    } else if(getPlayStatus == 'Pause' && subtitlesButtonStatus == 'true' && captionLanguageCheck.includes('de')){
         return true
     } 
 }
