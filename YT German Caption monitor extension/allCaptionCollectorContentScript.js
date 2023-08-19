@@ -36,17 +36,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
   
     // must declare these inside in order to work
+    let channelName = document.getElementsByClassName('yt-simple-endpoint style-scope yt-formatted-string')[0].innerText
+    let channelLink = document.getElementsByClassName('yt-simple-endpoint style-scope yt-formatted-string')[0].href
+    let videoTitle =document.getElementsByTagName('h1')[1].innerText
     let getCaptionLanguageType = document.getElementById('label-text')
     let allCaptionsTab = document.getElementById('segments-container')
     let captionTabExists = !!document.querySelectorAll('ytd-transcript-segment-renderer').length
     let allCaptions = ''
+    let videoDetails = {}
     // get all youtube captions of that video
     if(request.message == "request all yt captions" && captionTabExists && getCaptionLanguageType.innerText.includes('German')){
             console.log('detected german successfully..')
              allCaptions = allCaptionsTab.innerText  
             allWords = extractUniqueWords(extractWords(allCaptions)).sort()
             console.log(extractWords(allCaptions).length, extractUniqueWords(allCaptions).length,extractUniqueWords(extractWords(allCaptions)).length)
-            sendResponse(allWords);
+            // make the object of the video details
+            videoDetails = { title: videoTitle.trim(), channel: channelName.trim(), url: window.location.href.trim(), channelUrl: channelLink.trim(), captionWords: allWords}
+            sendResponse(videoDetails);
     } else{
       console.log('Some problems occured:', captionTabExists, request.message == "request all yt captions")
       // send a message as an error and check on the popup script 

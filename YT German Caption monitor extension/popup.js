@@ -29,9 +29,9 @@ fetchAllCaptionButton.addEventListener('click', ()=>{
 		const tabId = tabs[0].id;
 		chrome.tabs.sendMessage(tabId, { message: 'request all yt captions' }, function (fetchedWords) {
 			// setup axios and send the response to node server for translation using api.
-			if(typeof(fetchedWords) == 'object' && !!fetchedWords.length){
-				console.log(fetchedWords.length, !!fetchedWords.length, 'length of fetched words')
-				axios.post('http://localhost:3000/translateToEnglish', {videoUrl: tabs[0].url , wordlist: fetchedWords}).then((res) =>{
+			if(typeof(fetchedWords) == 'object' && !!fetchedWords.captionWords.length){
+				console.log(fetchedWords.captionWords.length, !!fetchedWords.captionWords.length, 'length of fetched words')
+				axios.post('http://localhost:3000/translateToEnglish', fetchedWords).then((res) =>{
 				console.log(res.data)
 				// restoring the button value
 				buttonSwitch(fetchAllCaptionButton, 'enable')
