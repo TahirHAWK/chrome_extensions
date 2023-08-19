@@ -2,16 +2,18 @@
 let rawCaptions = []
 let desiredCaptions = []
 
+
+
 // checking if the video is playing or in pause mode, if in pause, no further calculations would be done
 function checkPlayStatus(){
     // check if the caption button is activated or not
     let subtitlesButtonStatus = document.getElementsByClassName('ytp-subtitles-button')[0].getAttribute('aria-pressed')
     // check if the caption language selected is german or not
-    let captionLanguageCheck = document.getElementsByClassName('caption-window ytp-caption-window-bottom')[0].getAttribute('lang')
+    let captionLanguageCheck = document.getElementById('label-text').innerText
     let getPlayStatus = document.getElementsByClassName('ytp-play-button')[0].getAttribute('data-title-no-tooltip');
     if(getPlayStatus == 'Play'){
         return false
-    } else if(getPlayStatus == 'Pause' && subtitlesButtonStatus == 'true' && captionLanguageCheck.includes('de')){
+    } else if(getPlayStatus == 'Pause' && subtitlesButtonStatus == 'true' && captionLanguageCheck.includes('German')){
         return true
     } 
 }
@@ -101,6 +103,7 @@ function captionTraverser(){
 // }
 
 // execution section
+// setTimeout()
 setInterval(captionTraverser, 1000)
 
 

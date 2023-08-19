@@ -4,6 +4,19 @@ let lastURL = [window.location.href]
 // .getAttribute('aria-expanded'), || qualityButtons[i].innerText.includes('720')
 // declaration of different functions
 
+// open the 'show transcript' section
+function openShowTranscriptSection(){
+  return new Promise((resolve, reject)=>{
+    let moreOptions = document.getElementsByClassName('yt-spec-button-shape-next yt-spec-button-shape-next--tonal yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-button ')[1]
+    moreOptions.click()
+    setTimeout(()=>{
+      // click on the 'show transcript' button
+      document.getElementsByTagName('ytd-menu-service-item-renderer')[3].click()
+      resolve()
+    }, 250)
+  })
+}
+
 // this functions chooses the 480p option out of the other video qualities
 function select480p(){
   let qualityButtons = document.getElementsByClassName('ytp-menuitem-label')
@@ -36,6 +49,7 @@ function checkIfVideoLinkChanged(e){
     lastURL.push(window.location.href)
     checkSettingsButtonClickStatus()
     setTimeout(set480p, 350)
+    setTimeout(openShowTranscriptSection, 3000)
   } else{
     return false
   }
@@ -51,6 +65,7 @@ if(window.location.href.includes('youtube')){
   
 
     setTimeout(set480p, 1000)
+    setTimeout(openShowTranscriptSection, 3000)
     setInterval(checkIfVideoLinkChanged, 10*1000);
     //   declaring the function after loading first time
     
