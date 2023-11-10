@@ -1,5 +1,5 @@
 let allWords = []
-
+// document.body.innerText.includes('Pardon the interruption')
 // this function would extract unique words only out of a string or array and return them as an array
 function extractUniqueWords(input) {
     let words;
