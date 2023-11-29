@@ -1007,13 +1007,12 @@ let processedList = []
 // as directly modifying the captions has its drawbacks,  the same translated captions are fetched and sent to background for translation again, to prevent this, we are keeping a record
 function checkProcessedList(sentence){
     if(processedList.includes(sentence)){
-        console.log('found in processedlist', processedList)
+        console.log('found in processedlist')
         return sentence
     } else {
         let wordsToFind = extractWords(sentence)
-        let newSentence = findGermanMeaning(wordsToFind)
+        let newSentence = findGermanMeaning(wordsToFind, sentence)
         processedList.push(newSentence)
-        console.log('pushed to processedlist', processedList.includes(newSentence), processedList)
         return newSentence
     }
 }
@@ -1029,24 +1028,58 @@ function extractWords(str) {
     return words;
   }
 
+// //   here the parameter is an array which the words that need to be translated and the german word list
+// function findGermanMeaning(wordsToFind, rawSentence){
+//     let translatedSentence = ''
+//     // make it efficient
+//     wordsToFind.forEach((word)=>{
+//         if(germanWordList.includes(word)){
+//         for(j=0; j<germanWordList.length; j=j+2){
+//         if(germanWordList[j]==word){
+//             // i need to change here when the word is found.
+//             // translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
+//             translatedSentence = rawSentence.replace(word, `${word}(${germanWordList[j+1]})`)
+//             console.log('if the word exists.', word)
+//             j = germanWordList.length
+//         } 
+//         }
+//             } else{
+//                 // translatedSentence = translatedSentence +` ${word}`
+//                 // do nothing.
+//                 console.log('if the word doesnt exists.', word)
+//             }
+
+//     })
+//     return translatedSentence.trim()   
+// }
 //   here the parameter is an array which the words that need to be translated and the german word list
-function findGermanMeaning(wordsToFind){
-    let translatedSentence = ''
+function findGermanMeaning(wordsToFind, rawSentence){
+    let translatedSentence = []
     // make it efficient
     wordsToFind.forEach((word)=>{
         if(germanWordList.includes(word)){
-        for(j=0; j<germanWordList.length; j=j+2){
-        if(germanWordList[j]==word){
-            translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
-            j = germanWordList.length
-        } 
-        }
+        
+        // for(j=0; j<germanWordList.length; j=j+2){
+        // if(germanWordList[j]==word){
+            // i need to change here when the word is found.
+            // translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
+            if(translatedSentence.length == 0){ 
+                translatedSentence.push(rawSentence.replace(word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`))
+                console.log('if the word exists.', word)
             } else{
-                translatedSentence = translatedSentence +` ${word}`
+                translatedSentence[0] = translatedSentence[0].replace(word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`)
+                console.log('if the word exists.', word)
+            }
+        
+            } else{
+                // translatedSentence = translatedSentence +` ${word}`
+                // do nothing.
+                console.log('if the word doesnt exists.', word)
             }
 
     })
-    return translatedSentence.trim()   
+
+    return translatedSentence[0].trim()   
 }
 
 

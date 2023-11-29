@@ -11,4 +11,5 @@ replace with: "\\$1"
 
 
 next plans:
-1. 
+1. make the sentences with meaning in the bracked without removing the punctuation marks.
+2. clean the code of that segment.
