@@ -1,15 +1,25 @@
 // declaration section
 let rawCaptions = []
 let desiredCaptions = []
+let processedCaptions = {}
 
 
+// this function replace whitespace with underscores of a sentence
+function replaceSpacesWithUnderscores(sentence) {
+    return sentence.replace(/[\s\W]/g, '_');
+ }
+ 
 
 // checking if the video is playing or in pause mode, if in pause, no further calculations would be done
 function checkPlayStatus(){
     // check if the caption button is activated or not
     let subtitlesButtonStatus = document.getElementsByClassName('ytp-subtitles-button')[0].getAttribute('aria-pressed')
     // check if the caption language selected is german or not
+    // this only shows after clicking on 'Show transcript'
     let captionLanguageCheck = document.getElementById('label-text').innerText
+    // this is after clicking the gear icon in a running video, and see if the subtitles is selected to german or not, but it won't show if the gear icon is pressed at least once
+    // let captionLanguageCheck = document.getElementsByClassName('ytp-menuitem')[2].innerText
+
     let getPlayStatus = document.getElementsByClassName('ytp-play-button')[0].getAttribute('data-title-no-tooltip');
     if(getPlayStatus == 'Play'){
         return false
@@ -39,33 +49,30 @@ function collectCaption(){
     return fullCaption.trim()
 }
 
-// sendItToBackground, this function send the parameter whatever it is passed to the background script for further processing
+
 function sendItToBackground(caption){
     // write the code to send it to background
     chrome.runtime.sendMessage({message: caption}, (response)=>{
         // the response would be the translated array
-        rawCaptions.push(caption)
-        desiredCaptions.push(response.message)
-        console.log('response from background:', response.message )
+       
+        processedCaptions[replaceSpacesWithUnderscores(caption)] = response.message
+        console.log('response from background:', processedCaptions )
         placeCaption(response.message)
     })
 }
 
 
-// checkRawCaptions , in this the parameter will be checked accross all array elements of rawCaptions, if the same one is found, then the same index number of rawCaptions, will contain the translated caption in the desired captions array
+
+
 function checkRawCaptions(activeCaption){
-    let captionLocationInArray = 0
     if(!activeCaption){
         console.log('just an empty string.')
-    } else if(desiredCaptions.includes(activeCaption) || rawCaptions.includes(activeCaption)){
-        console.log(' caption exists, dont sent to background.', desiredCaptions.includes(activeCaption), rawCaptions.includes(activeCaption), desiredCaptions, rawCaptions)
-        if(desiredCaptions.includes(activeCaption)){
-            captionLocationInArray = desiredCaptions.indexOf(activeCaption)
-            placeCaption(desiredCaptions[captionLocationInArray])
-        } else if(rawCaptions.includes(activeCaption)){
-            captionLocationInArray = rawCaptions.indexOf(activeCaption)
-            placeCaption(desiredCaptions[captionLocationInArray])
-        }
+    } else if(Object.values(processedCaptions).includes(activeCaption)){
+        placeCaption(activeCaption)
+    } else if(processedCaptions[replaceSpacesWithUnderscores(activeCaption)] != undefined || processedCaptions[replaceSpacesWithUnderscores(activeCaption)] != null){
+        console.log(' caption exists, dont sent to background.', Object.keys(processedCaptions).length)
+   
+            placeCaption(processedCaptions[replaceSpacesWithUnderscores(activeCaption)])
     } else{
         sendItToBackground(activeCaption)
     }
@@ -80,11 +87,12 @@ function captionTraverser(){
         checkRawCaptions(collectCaption())
     } else{
         console.log('Currently in pause/caption is off, press play/activate captions to continue or set the caption language to German.')
+
     }
 }
 
 // need this method for the future use....
-
+// can use the active tab transcript somewhere else
 // function captionTraverser(){
 //     console.log('from caption traverser: ' ,rawCaptions, desiredCaptions)
 //     let getCaptionLanguageType = document.getElementById('label-text')
@@ -103,8 +111,9 @@ function captionTraverser(){
 // }
 
 // execution section
-// setTimeout()
 setInterval(captionTraverser, 1000)
+
+
 
 
 

@@ -1001,18 +1001,47 @@ let germanWordList = ["German","English",
 "Zorn","anger",
 "Anspruch","claim",
 "Kontinent","continent"]
-let processedList = []
+let processedList = {}
 
+// it will replace words you want to replace with new words preserving case.
+function replaceWord(sentence, oldWord, newWord) {
+    // Create a regular expression that matches the old word surrounded by word boundaries
+    var regex = new RegExp("\\b" + oldWord + "\\b", "gi");
+    
+    // Function to preserve the case of the original word
+    var replacer = function(match) {
+      if (match === oldWord) {
+        return newWord;
+      } else if (match === oldWord.charAt(0).toUpperCase() + oldWord.slice(1)) {
+        return newWord.charAt(0).toUpperCase() + newWord.slice(1);
+      } else {
+        return newWord.toLowerCase();
+      }
+    };
+    
+    // Use the replace method with the regex and replacer function to replace all instances of the old word
+    var newSentence = sentence.replace(regex, replacer);
+    
+    return newSentence;
+   }
+   
+
+// this function replace whitespace with underscores of a sentence
+function replaceSpacesWithUnderscores(sentence) {
+    return sentence.replace(/[\s\W]/g, '_');
+ }
+ 
 
 // as directly modifying the captions has its drawbacks,  the same translated captions are fetched and sent to background for translation again, to prevent this, we are keeping a record
 function checkProcessedList(sentence){
-    if(processedList.includes(sentence)){
+    if(processedList[replaceSpacesWithUnderscores(sentence)] || Object.values(processedList).includes(sentence)){
         console.log('found in processedlist')
         return sentence
     } else {
         let wordsToFind = extractWords(sentence)
         let newSentence = findGermanMeaning(wordsToFind, sentence)
-        processedList.push(newSentence)
+        processedList[replaceSpacesWithUnderscores(sentence)] = newSentence
+        console.log(processedList)
         return newSentence
     }
 }
@@ -1052,6 +1081,7 @@ function extractWords(str) {
 //     })
 //     return translatedSentence.trim()   
 // }
+
 //   here the parameter is an array which the words that need to be translated and the german word list
 function findGermanMeaning(wordsToFind, rawSentence){
     let translatedSentence = []
@@ -1064,10 +1094,10 @@ function findGermanMeaning(wordsToFind, rawSentence){
             // i need to change here when the word is found.
             // translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
             if(translatedSentence.length == 0){ 
-                translatedSentence.push(rawSentence.replace(word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`))
+                translatedSentence.push(replaceWord(rawSentence, word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`))
                 console.log('if the word exists.', word)
             } else{
-                translatedSentence[0] = translatedSentence[0].replace(word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`)
+                translatedSentence[0] = replaceWord(translatedSentence[0], word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`)
                 console.log('if the word exists.', word)
             }
         
@@ -1085,6 +1115,7 @@ function findGermanMeaning(wordsToFind, rawSentence){
 
 // listen for messages
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
-    console.log(message.message.trim())
+    // From captionMonitorContentScript line: 45
+    console.log(message.message.trim(), 'from background 1088 line')
     sendResponse({message: checkProcessedList(message.message.trim())})
 })

@@ -1,5 +1,5 @@
 
-
+// After clicking on 'Collect words to use from current tab'
 // keeping the value of the previous button heading/value
 let buttonTempValueHolder = []
 let buttonSwitch = function(button, status){
@@ -33,6 +33,9 @@ fetchAllCaptionButton.addEventListener('click', ()=>{
 				console.log(fetchedWords.captionWords.length, !!fetchedWords.captionWords.length, 'length of fetched words')
 				axios.post('http://localhost:3000/translateToEnglish', fetchedWords).then((res) =>{
 				console.log(res.data)
+				// this is where the automated translated code will go
+
+
 				// restoring the button value
 				buttonSwitch(fetchAllCaptionButton, 'enable')
 				}).catch(error => {
