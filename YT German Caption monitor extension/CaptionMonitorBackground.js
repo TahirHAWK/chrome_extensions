@@ -1003,6 +1003,22 @@ let germanWordList = ["German","English",
 "Kontinent","continent"]
 let processedList = {}
 
+// it will extract unique words from an array or string
+function extractUniqueWords(input) {
+    let words;
+    
+    if (typeof input === 'string') {
+      words = input.toLowerCase().split(/\W+/);
+    } else if (Array.isArray(input)) {
+      words = input.map(item => item.toLowerCase());
+    } else {
+      throw new Error('Input must be a string or an array.');
+    }
+    
+    const uniqueWords = [...new Set(words)];
+    return uniqueWords;
+  }
+
 // it will replace words you want to replace with new words preserving case.
 function replaceWord(sentence, oldWord, newWord) {
     // Create a regular expression that matches the old word surrounded by word boundaries
@@ -1054,7 +1070,7 @@ function extractWords(str) {
     // Split the cleaned string into an array of words
     const words = cleanedStr.split(/\s+/).filter(word => word !== '');
   
-    return words;
+    return extractUniqueWords(words);
   }
 
 // //   here the parameter is an array which the words that need to be translated and the german word list
@@ -1084,38 +1100,26 @@ function extractWords(str) {
 
 //   here the parameter is an array which the words that need to be translated and the german word list
 function findGermanMeaning(wordsToFind, rawSentence){
-    let translatedSentence = []
+    let translatedSentence = rawSentence
     // make it efficient
+    console.log(wordsToFind, ': total words to find.')
     wordsToFind.forEach((word)=>{
-        if(germanWordList.includes(word)){
-        
-        // for(j=0; j<germanWordList.length; j=j+2){
-        // if(germanWordList[j]==word){
-            // i need to change here when the word is found.
-            // translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
-            if(translatedSentence.length == 0){ 
-                translatedSentence.push(replaceWord(rawSentence, word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`))
-                console.log('if the word exists.', word)
+        if(germanWordList.includes(word.toLowerCase())){
+            // every time the raw sentence is getting output
+                translatedSentence = replaceWord(translatedSentence, word, `${word}(${germanWordList[germanWordList.indexOf(word.toLowerCase())+1]})`)
+                console.log(`${word} exists: ${translatedSentence}`, translatedSentence, word)            
             } else{
-                translatedSentence[0] = replaceWord(translatedSentence[0], word, `${word}(${germanWordList[germanWordList.indexOf(word)+1]})`)
-                console.log('if the word exists.', word)
+                console.log(`${word} doesn't exists.`)
             }
-        
-            } else{
-                // translatedSentence = translatedSentence +` ${word}`
-                // do nothing.
-                console.log('if the word doesnt exists.', word)
-            }
-
     })
 
-    return translatedSentence[0].trim()   
+    return translatedSentence.trim()   
 }
 
 
 // listen for messages
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     // From captionMonitorContentScript line: 45
-    console.log(message.message.trim(), 'from background 1088 line')
+    console.log(message.message.trim(), 'from background 1105 line')
     sendResponse({message: checkProcessedList(message.message.trim())})
 })
