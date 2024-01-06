@@ -80,15 +80,23 @@ function checkIfVideoLinkChanged(e){
 // global area, only works if the url is from youtube
 if(window.location.href.includes('youtube.com/watch')){
   // checking if the site we are on is youtube or not
-  
 
-    setTimeout(set720p, 1000)
-    setTimeout(openShowTranscriptSection, 3000)
-    setInterval(checkIfVideoLinkChanged, 10*1000);
+   
+
     //   declaring the function after loading first time
     
 
 }
+
+window.addEventListener('keydown', function(event) {
+  if (event.key.toLowerCase() == 'q') {
+   console.log('Q key pressed');
+   // Add your code here
+   setTimeout(set720p, 1000)
+   setTimeout(openShowTranscriptSection, 3000)
+   setInterval(checkIfVideoLinkChanged, 10*1000);
+  }
+ });
 
 
 

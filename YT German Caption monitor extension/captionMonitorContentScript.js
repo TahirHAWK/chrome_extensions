@@ -6,8 +6,8 @@ let processedCaptions = {}
 
 // this function replace whitespace with underscores of a sentence
 function replaceSpacesWithUnderscores(sentence) {
-    return sentence.replace(/[\s\W]/g, '_');
- }
+    return sentence.replace(/[^a-zA-Z0-9\u00C0-\u00FF]/g, '_');
+  }
  
 
 // checking if the video is playing or in pause mode, if in pause, no further calculations would be done

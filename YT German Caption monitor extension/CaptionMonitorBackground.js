@@ -1044,9 +1044,9 @@ function replaceWord(sentence, oldWord, newWord) {
 
 // this function replace whitespace with underscores of a sentence
 function replaceSpacesWithUnderscores(sentence) {
-    return sentence.replace(/[\s\W]/g, '_');
- }
- 
+  return sentence.replace(/[^a-zA-Z0-9\u00C0-\u00FF]/g, '_');
+}
+
 
 // as directly modifying the captions has its drawbacks,  the same translated captions are fetched and sent to background for translation again, to prevent this, we are keeping a record
 function checkProcessedList(sentence){
