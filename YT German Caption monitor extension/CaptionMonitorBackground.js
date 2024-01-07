@@ -1001,6 +1001,8 @@ let germanWordList = ["German","English",
 "Zorn","anger",
 "Anspruch","claim",
 "Kontinent","continent"]
+
+
 let processedList = {}
 
 // it will extract unique words from an array or string
@@ -1073,28 +1075,22 @@ function extractWords(str) {
     return extractUniqueWords(words);
   }
 
-// //   here the parameter is an array which the words that need to be translated and the german word list
-// function findGermanMeaning(wordsToFind, rawSentence){
-//     let translatedSentence = ''
-//     // make it efficient
-//     wordsToFind.forEach((word)=>{
-//         if(germanWordList.includes(word)){
-//         for(j=0; j<germanWordList.length; j=j+2){
-//         if(germanWordList[j]==word){
-//             // i need to change here when the word is found.
-//             // translatedSentence = translatedSentence +` ${word}(${germanWordList[j+1]})`
-//             translatedSentence = rawSentence.replace(word, `${word}(${germanWordList[j+1]})`)
-//             console.log('if the word exists.', word)
-//             j = germanWordList.length
-//         } 
-//         }
-//             } else{
-//                 // translatedSentence = translatedSentence +` ${word}`
-//                 // do nothing.
-//                 console.log('if the word doesnt exists.', word)
-//             }
 
+//   here the parameter is an array which the words that need to be translated and the german word list
+// function findGermanMeaning(wordsToFind, rawSentence){
+//     let translatedSentence = rawSentence
+//     // make it efficient
+//     console.log(wordsToFind, ': total words to find.')
+//     wordsToFind.forEach((word)=>{
+//         if(germanWordList.includes(word.toLowerCase())){
+//             // every time the raw sentence is getting output
+//                 translatedSentence = replaceWord(translatedSentence, word, `${word}(${germanWordList[germanWordList.indexOf(word.toLowerCase())+1]})`)
+//                 console.log(`${word} exists: ${translatedSentence}`, translatedSentence, word)            
+//             } else{
+//                 console.log(`${word} doesn't exists.`)
+//             }
 //     })
+
 //     return translatedSentence.trim()   
 // }
 
@@ -1104,9 +1100,9 @@ function findGermanMeaning(wordsToFind, rawSentence){
     // make it efficient
     console.log(wordsToFind, ': total words to find.')
     wordsToFind.forEach((word)=>{
-        if(germanWordList.includes(word.toLowerCase())){
+        if(!!(germanWordListObject[word.toLowerCase()])){
             // every time the raw sentence is getting output
-                translatedSentence = replaceWord(translatedSentence, word, `${word}(${germanWordList[germanWordList.indexOf(word.toLowerCase())+1]})`)
+                translatedSentence = replaceWord(translatedSentence, word, `${word}(${germanWordListObject[word.toLowerCase()]})`)
                 console.log(`${word} exists: ${translatedSentence}`, translatedSentence, word)            
             } else{
                 console.log(`${word} doesn't exists.`)
