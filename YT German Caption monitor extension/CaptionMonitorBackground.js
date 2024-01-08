@@ -118,3 +118,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     console.log(message.message.trim(), 'from background 1105 line')
     sendResponse({message: checkProcessedList(message.message.trim())})
 })
+
+
+// From captionMonitorContentScript.js file, stops here 
