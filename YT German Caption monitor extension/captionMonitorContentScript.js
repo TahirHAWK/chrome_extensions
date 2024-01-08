@@ -1,6 +1,4 @@
 // declaration section
-let rawCaptions = []
-let desiredCaptions = []
 let processedCaptions = {}
 
 

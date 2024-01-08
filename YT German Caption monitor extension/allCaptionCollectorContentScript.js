@@ -1,6 +1,7 @@
 // After clicking on 'Collect words to use from current tab'
-
+// This script does not use the background script
 let allWords = []
+
 function extractUniqueWords(input) {
     let words;
     
