@@ -15,12 +15,4 @@ next plans:
 
 also, ytAutoQualitySelector file, assign the quality selector to a button instead of running it continuously in the background. later on, make a html button beside the play pause video controls of youtube.
 
-2. DONE - on background script, document properly which part of the background script is coming from which content script.
-
-3. DONE - already done, but i have to do the same for the German to english wordlist, so that the words will be found easily. tip: copy the hardcoded wordlist in nodejs, write a program which will make the english words keys and the german ones values, and write it on a txt file inside the node project as a string shaped as an object, later you can just copy it and paste it to where it was before.
-
-DONE - use object on desired caption and raw caption, sample format might be like this, which will save execution cycles and find already processed captions easily, hopefully it will solve the 'undefined' problem in the captions. Sample format: 
-
-let alreadyUsedCaption = {
-    "Guten Tag":"Guten(good) Tag(day)"
-}
+2. 
