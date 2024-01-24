@@ -1,5 +1,8 @@
-// declaration section
+// universal declaration section
 let processedCaptions = {}
+let lastExecutedCaptionTraverser = new Date()
+const CAPTION_TRAVERSER_INTERVAL_TIME = 1000
+let captionTraverserIntervalID = null
 
 
 // this function replace whitespace with underscores of a sentence
@@ -81,6 +84,7 @@ function checkRawCaptions(activeCaption){
 
 function captionTraverser(){
     // it will only run if the video is playing
+    lastExecutedCaptionTraverser = new Date()
     if(checkPlayStatus()){
         checkRawCaptions(collectCaption())
     } else{
@@ -108,8 +112,60 @@ function captionTraverser(){
 //     }
 // }
 
+function intervalIDSwitch(IntervalID){
+    if(IntervalID == null){
+                     
+        IntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+        } else if(IntervalID !== null){
+                     
+            clearInterval(IntervalID)
+            
+            }
+}
+
 // execution section
-setInterval(captionTraverser, 1000)
+ captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+ 
+//  pressing w can trigger the captionTraverser on or off without refreshing the page, make sure to keep track of the intervalID to shut it down if necessary
+ window.addEventListener('keydown', function(event) {
+     if (event.key.toLowerCase() == 'w') {
+         let now = new Date()
+         console.log('w key pressed', captionTraverserIntervalID);
+         // checking if the site we are on is youtube or not
+         if(window.location.href.includes('youtube.com/watch')){
+             //   declaring the function after loading first time
+            let difference = now.getTime() - lastExecutedCaptionTraverser.getTime()
+            console.log(difference ,CAPTION_TRAVERSER_INTERVAL_TIME + 500)
+            if(difference > CAPTION_TRAVERSER_INTERVAL_TIME + 500){
+                // turning it on
+                if(captionTraverserIntervalID == null){
+                     
+                    captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+                    } else if(captionTraverserIntervalID !== null){
+                                 
+                        clearInterval(captionTraverserIntervalID)
+                        captionTraverserIntervalID = null
+                        
+                        }
+                console.log('more than thousand: Probably off:', captionTraverserIntervalID)
+
+        } else{
+            // turning it off
+            if(captionTraverserIntervalID == null){
+                     
+                captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+                } else if(captionTraverserIntervalID !== null){
+                             
+                    clearInterval(captionTraverserIntervalID)
+                    captionTraverserIntervalID = null
+                    
+                    }
+            console.log('less than thousand: probably on:', captionTraverserIntervalID)
+            
+        }
+    }
+    }
+   });
 
 
 

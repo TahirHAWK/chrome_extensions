@@ -100,6 +100,7 @@ function checkIfVideoLinkChanged(e){
 
 
 window.addEventListener('keydown', function(event) {
+
   if (event.key.toLowerCase() == 'q') {
    console.log('Q key pressed');
    // checking if the site we are on is youtube or not
@@ -110,6 +111,7 @@ window.addEventListener('keydown', function(event) {
     setInterval(checkIfVideoLinkChanged, 10*1000);
   }
   }
+
  });
 
 
