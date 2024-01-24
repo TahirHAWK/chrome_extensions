@@ -112,60 +112,77 @@ function captionTraverser(){
 //     }
 // }
 
-function intervalIDSwitch(IntervalID){
-    if(IntervalID == null){
-                     
-        IntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
-        } else if(IntervalID !== null){
-                     
-            clearInterval(IntervalID)
-            
-            }
+// if the url is youtube or not
+function checkIfVideoLinkIsYoutube(){
+    if(window.location.href.includes('youtube.com/watch')){
+        return true
+    } else{
+        return false
+    }
+}
+
+// this function will turn the repeating interval function of captionTraverser on and off
+function intervalIDSwitch(){
+    let now = new Date()
+    // checking if the site we are on is youtube or not
+    if(window.location.href.includes('youtube.com/watch')){
+        //   declaring the function after loading first time
+       let difference = now.getTime() - lastExecutedCaptionTraverser.getTime()
+       console.log(difference ,CAPTION_TRAVERSER_INTERVAL_TIME + 500)
+       if(difference > CAPTION_TRAVERSER_INTERVAL_TIME + 500){
+           // turning it on
+           if(captionTraverserIntervalID == null){
+                
+               captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+               } else if(captionTraverserIntervalID !== null){
+                            
+                   clearInterval(captionTraverserIntervalID)
+                   captionTraverserIntervalID = null
+                   
+                   }
+           console.log('more than thousand: Probably off:', captionTraverserIntervalID)
+
+   } else{
+       // turning it off
+       if(captionTraverserIntervalID == null){
+                
+           captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+           } else if(captionTraverserIntervalID !== null){
+                        
+               clearInterval(captionTraverserIntervalID)
+               captionTraverserIntervalID = null
+               
+               }
+       console.log('less than thousand: probably on:', captionTraverserIntervalID)
+       
+   }
+}
 }
 
 // execution section
- captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+
  
 //  pressing w can trigger the captionTraverser on or off without refreshing the page, make sure to keep track of the intervalID to shut it down if necessary
  window.addEventListener('keydown', function(event) {
      if (event.key.toLowerCase() == 'w') {
-         let now = new Date()
-         console.log('w key pressed', captionTraverserIntervalID);
-         // checking if the site we are on is youtube or not
-         if(window.location.href.includes('youtube.com/watch')){
-             //   declaring the function after loading first time
-            let difference = now.getTime() - lastExecutedCaptionTraverser.getTime()
-            console.log(difference ,CAPTION_TRAVERSER_INTERVAL_TIME + 500)
-            if(difference > CAPTION_TRAVERSER_INTERVAL_TIME + 500){
-                // turning it on
-                if(captionTraverserIntervalID == null){
-                     
-                    captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
-                    } else if(captionTraverserIntervalID !== null){
-                                 
-                        clearInterval(captionTraverserIntervalID)
-                        captionTraverserIntervalID = null
-                        
-                        }
-                console.log('more than thousand: Probably off:', captionTraverserIntervalID)
-
-        } else{
-            // turning it off
-            if(captionTraverserIntervalID == null){
-                     
-                captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
-                } else if(captionTraverserIntervalID !== null){
-                             
-                    clearInterval(captionTraverserIntervalID)
-                    captionTraverserIntervalID = null
-                    
-                    }
-            console.log('less than thousand: probably on:', captionTraverserIntervalID)
-            
-        }
-    }
+        intervalIDSwitch()
     }
    });
+
+document.getElementsByTagName('video')[0].onplaying = function(){
+    if(checkIfVideoLinkIsYoutube){
+        console.log('on playing..')
+        captionTraverserIntervalID = setInterval(captionTraverser, CAPTION_TRAVERSER_INTERVAL_TIME)
+    }
+}
+document.getElementsByTagName('video')[0].onpause = function(){
+    if(checkIfVideoLinkIsYoutube){
+        console.log('on pause..')
+            intervalIDSwitch()
+    }
+}
+
+
 
 
 
