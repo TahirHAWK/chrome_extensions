@@ -15,4 +15,5 @@ next plans:
 
 also, ytAutoQualitySelector file, assign the quality selector to a button instead of running it continuously in the background. later on, make a html button beside the play pause video controls of youtube.
 
-2. 
+2. make the python server for dynamic translation
+3. make corrections for the dynamically ai generated transcripts by youtube

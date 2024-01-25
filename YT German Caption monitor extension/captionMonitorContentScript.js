@@ -128,7 +128,6 @@ function intervalIDSwitch(){
     if(window.location.href.includes('youtube.com/watch')){
         //   declaring the function after loading first time
        let difference = now.getTime() - lastExecutedCaptionTraverser.getTime()
-       console.log(difference ,CAPTION_TRAVERSER_INTERVAL_TIME + 500)
        if(difference > CAPTION_TRAVERSER_INTERVAL_TIME + 500){
            // turning it on
            if(captionTraverserIntervalID == null){
@@ -140,7 +139,6 @@ function intervalIDSwitch(){
                    captionTraverserIntervalID = null
                    
                    }
-           console.log('more than thousand: Probably off:', captionTraverserIntervalID)
 
    } else{
        // turning it off
@@ -153,7 +151,6 @@ function intervalIDSwitch(){
                captionTraverserIntervalID = null
                
                }
-       console.log('less than thousand: probably on:', captionTraverserIntervalID)
        
    }
 }
