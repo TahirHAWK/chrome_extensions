@@ -3,7 +3,8 @@
   "name": "Youtube German Captions monitor",
   "version": "1.0",
   "background": {
-    "service_worker": "CaptionMonitorBackground.js"
+    "service_worker": "CaptionMonitorBackground.js",
+    "type": "module"
   },
   "permissions": [
     "scripting",
@@ -21,6 +22,12 @@
     {
       "matches": ["https://*.youtube.com/*"],
       "js": [ "captionMonitorContentScript.js", "allCaptionCollectorContentScript.js", "ytAutoQualitySelector.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://myhaw.haw-hamburg.de/qisserver/pages/sul/examAssessment/personExamsReadonly.xhtml?_flowId=examsOverviewForPerson*"],
+      "js": [ "MyHAW/TestContentManipulation.js" ],
       "run_at": "document_idle",
       "all_frames": false
     }
